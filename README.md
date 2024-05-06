@@ -1,6 +1,6 @@
 # Fair Federated Learning for Medical Image Analysis
 
-Welcome to the official repository for the paper titled "[From Optimization to Generalization: Fair Federated Learning against Quality Shift via Inter-Client Sharpness Matching](https://arxiv.org/abs/2404.17805)". This paper has been accepted for presentation at the IJCAI'24 main technical track.
+Welcome to the official repository for the paper titled "[From Optimization to Generalization: Fair Federated Learning against Quality Shift via Inter-Client Sharpness Matching](https://arxiv.org/abs/2404.17805)". This paper has been accepted for presentation at the `IJCAI'24` main technical track.
 
 <p align="center">
     <img src="./assets/bg.png" alt="Project Overview" width="80%"/>
@@ -14,15 +14,45 @@ Our goal is to advance the development of fair federated learning in medical ima
 
 
 ## Requirements
-We recommend using conda to setup the environment. See `requirements.txt` for the environment configuration.
+We recommend using conda to setup the environment. See `code/requirements.txt` for the environment configuration.
 
 
 ## Datasets Preparation
-Please download the ICH dataset from [kaggle](https://www.kaggle.com/c/rsna-intracranial-hemorrhage-detection). Please download the ISIC 2019 dataset from this [link](https://challenge.isic-archive.com/data/#2019). Data partition can be found in the paper.
+Please download the ICH dataset from [kaggle](https://www.kaggle.com/c/rsna-intracranial-hemorrhage-detection). Please download the ISIC 2019 dataset from this [link](https://challenge.isic-archive.com/data/#2019). 
 
+Training-testing partition can be found in the `/data`.
 
-## Code
-Things are coming soon.
+Take ICH for example, you should put images into `/data/ICH_20/train/clean` and `/data/ICH_20/test/clean`. After it, generate corrupted images with `/data/ICH_20/add_noise.ipynb`. You may finally get directories, like the following example. 
+
+```
+└── data
+    ├── ICH_20
+    │   │
+    │   ├── test
+    │   │   ├── clean
+    │   │   ├── gaussian_1
+    │   │   ├── gaussian_2
+    │   │   ├── gaussian_3
+    │   │   ├── gaussian_4
+    │   │   └── gaussian_5
+    │   │
+    │   └── train
+    │       ├── clean
+    │       └── gaussian3_16_4_dir1.0
+    │
+    └── ISIC2019_20
+```
+
+## Run
+If everything is ready, you may try:
+
+```
+python code/train_Baseline.py --dataset ICH_20 --noise 1 --alg FedISM --corrupted_num 4 --q 2.0 --beta 0.5
+```
+You may also run other baseline methods, like:
+```
+python code/train_Baseline.py --dataset ICH_20 --noise 1 --alg q_FedAvg --corrupted_num 4 --q 1.0
+```
 
 
 ## Citation
