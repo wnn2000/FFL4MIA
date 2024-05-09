@@ -28,7 +28,7 @@ def set_output_files(args):
         os.mkdir(outputs_dir)
 
     exp_dir = os.path.join(outputs_dir, args.alg + '_a' + str(args.attempts) + '_lr' + str(args.base_lr) + '_n' + str(args.noise) 
-                           + '_e' + str(args.local_ep) + '_s' + str(args.step) + '_alpha' + str(args.gsam_alpha)+ '_rho' + str(args.gsam_rho) + '_q' + str(args.q))
+                           + '_e' + str(args.local_ep) + '_alpha' + str(args.gsam_alpha)+ '_rho' + str(args.gsam_rho) + '_q' + str(args.q))
     if args.iid:
         exp_dir += '_iid'
     else:
