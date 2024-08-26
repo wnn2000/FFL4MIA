@@ -145,7 +145,7 @@ if __name__ == '__main__':
             assert len(w_locals) == len(dict_len) == args.n_clients
             logging.info(f"------> round: {Current_Round}, Training loss:")
             logging.info(np.array(loss_locals))
-            if args == "FedCE":
+            if args.alg == "FedCE":
                 model_last_round = copy.deepcopy(w_locals)
             ########################################### END Local Training Algorithm ###########################################
 
