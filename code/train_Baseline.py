@@ -259,7 +259,9 @@ if __name__ == '__main__':
                 agg_weights = sharpness_clients / sharpness_clients.sum()
                 agg_weights = np.float_power(agg_weights+1e-10, args.q)
                 agg_weights = agg_weights / agg_weights.sum()
-                agg_weights = args.beta * agg_weights + (1-args.beta) * our_last_weights # Moving Average
+
+                if Current_Round>0:
+                    agg_weights = args.beta * agg_weights + (1-args.beta) * our_last_weights # Moving Average
 
                 w_glob_fl = FedAvg(w_locals, agg_weights)
                 netglob.load_state_dict(copy.deepcopy(w_glob_fl))
