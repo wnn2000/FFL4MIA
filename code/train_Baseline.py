@@ -13,7 +13,7 @@ from tensorboardX import SummaryWriter
 from utils.options import args_parser
 from utils.local_training import LocalUpdate
 from utils.FedAvg import FedAvg, get_agg_weights_FedGA, FedCE_aggregator
-from utils.utils import set_seed, set_output_files, compute_loss, get_minus_model, local_valid, get_perturb_model
+from utils.utils import set_seed, set_output_files, compute_loss, get_minus_model, local_valid, get_perturb_model, get_current_rho
 from utils.evaluation import globaltest
 
 from datasets.dataset import get_dataset
@@ -99,6 +99,9 @@ if __name__ == '__main__':
             logging.info(f"\n--------------------------> training, run: {Current_RUN}, round: {Current_Round} <--------------------------")
             w_locals, loss_locals = [], []
 
+            current_rho = get_current_rho(Current_Round, args)
+            writer.add_scalar(f'train_run{Current_RUN}/rho', current_rho, Current_Round)
+
             ################ settings before local training, for FedCE only
             if args.alg == "FedCE":
                 if Current_Round > 0:
@@ -129,9 +132,9 @@ if __name__ == '__main__':
                     w_local, loss_local = local.train(
                         net=copy.deepcopy(netglob).to(args.device))
 
-                elif args.alg in ["FedISM"]:
+                elif args.alg in ["FedISM", "FedISM+"]:
                     w_local, loss_local = local.train_GSAM(
-                        net=copy.deepcopy(netglob).to(args.device))
+                        net=copy.deepcopy(netglob).to(args.device), rho=current_rho)
                     
                 else:
                     raise NotImplementedError
@@ -232,7 +235,7 @@ if __name__ == '__main__':
                 netglob.load_state_dict(copy.deepcopy(w_glob_fl))
 
 
-            elif args.alg == "FedISM": # Ours
+            elif args.alg == "FedISM" or args.alg == "FedISM+": # Ours
                 loss_clients = []
                 loss_perturb_clients = []
                 loss_all, _, _, _ = compute_loss(copy.deepcopy(dataset_train), copy.deepcopy(netglob).to(args.device), args)
@@ -241,7 +244,7 @@ if __name__ == '__main__':
                     loss = loss_all[np.array(dict_users[i])].mean()
                     loss_clients.append(loss)
                     local_dataset = copy.deepcopy(trainer_locals[i].local_dataset)
-                    net_perturb = get_perturb_model(local_dataset, copy.deepcopy(netglob).to(args.device), args)
+                    net_perturb = get_perturb_model(local_dataset, copy.deepcopy(netglob).to(args.device), current_rho, args)
                     loss_all_p, _, _, _ = compute_loss(local_dataset, copy.deepcopy(net_perturb).to(args.device), args)
                     loss_perturb_clients.append(loss_all_p.mean())
                 

@@ -82,14 +82,14 @@ class LocalUpdate(object):
         return net.state_dict(), np.array(epoch_loss).mean()
     
 
-    def train_GSAM(self, net):
+    def train_GSAM(self, net, rho):
         assert len(self.ldr_train.dataset) == len(self.idxs)
         print(f"Client ID: {self.client_id}, Num: {len(self.ldr_train.dataset)}")
         
         net.train()
         # set the optimizer
         base_optimizer = torch.optim.Adam(net.parameters(), lr=self.lr, betas=(0.9, 0.999), weight_decay=5e-4)
-        optimizer = GSAM(params=net.parameters(), base_optimizer=base_optimizer, model=net, gsam_alpha=self.args.gsam_alpha, rho=self.args.gsam_rho, adaptive=False)
+        optimizer = GSAM(params=net.parameters(), base_optimizer=base_optimizer, model=net, gsam_alpha=self.args.gsam_alpha, rho=rho, adaptive=False)
 
         # train and update
         epoch_loss = []

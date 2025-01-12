@@ -43,6 +43,7 @@ def args_parser():
     # for GSAM
     parser.add_argument('--gsam_rho', type=float,  default=0.05, help='rho for GSAM')
     parser.add_argument('--gsam_alpha', type=float,  default=0.1, help='alpha for GSAM')
+    parser.add_argument('--p_rho_curve', type=float, default=0.5, help="p_rho_curve")
 
 
     # for FedCE

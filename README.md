@@ -1,14 +1,23 @@
 # Fair Federated Learning for Medical Image Analysis
 
-Welcome to the official repository for the paper titled "[From Optimization to Generalization: Fair Federated Learning against Quality Shift via Inter-Client Sharpness Matching](https://arxiv.org/abs/2404.17805)". This paper has been accepted for presentation at the `IJCAI'24` main technical track.
+Welcome to the official repository for the papers titled:  
+- [From Optimization to Generalization: Fair Federated Learning against Quality Shift via Inter-Client Sharpness Matching](https://arxiv.org/abs/2404.17805)  
+- Fair Federated Medical Image Classification Against Quality Shift via Inter-Client Progressive State Matching (under review)
+
+The first paper has been accepted for presentation in the main technical track of `IJCAI'24`. The second paper is an extended version of the first one.
 
 <p align="center">
     <img src="./assets/bg.png" alt="Project Overview" width="80%"/>
 </p>
 
 
+## Updates  
+- **`Jan. 12, 2025`:** We have introduced an extended method, i.e., **FedISM+**.
+
+
+
 ## About
-In this repository, we provide the implementation of our proposed **FedISM** approach, along with **other baseline methods** including [FedAvg (AISTATS'17)](https://arxiv.org/abs/1602.05629), [Agnostic-FL (ICML'19)](https://arxiv.org/abs/1902.00146), [q-FedAvg (ICLR'20)](https://arxiv.org/abs/1905.10497), [FairFed (AAAI'23)](https://arxiv.org/abs/2110.00857), [FedCE (CVPR'23)](https://arxiv.org/abs/2303.16520) and [FedGA (CVPR'23)](https://openaccess.thecvf.com/content/CVPR2023/papers/Zhang_Federated_Domain_Generalization_With_Generalization_Adjustment_CVPR_2023_paper.pdf).
+In this repository, we provide the implementation of our proposed **FedISM** and **FedISM+** approaches, along with **other baseline methods** including [FedAvg (AISTATS'17)](https://arxiv.org/abs/1602.05629), [Agnostic-FL (ICML'19)](https://arxiv.org/abs/1902.00146), [q-FedAvg (ICLR'20)](https://arxiv.org/abs/1905.10497), [FairFed (AAAI'23)](https://arxiv.org/abs/2110.00857), [FedCE (CVPR'23)](https://arxiv.org/abs/2303.16520) and [FedGA (CVPR'23)](https://openaccess.thecvf.com/content/CVPR2023/papers/Zhang_Federated_Domain_Generalization_With_Generalization_Adjustment_CVPR_2023_paper.pdf).
 
 Our goal is to advance the development of fair federated learning in medical image analysis and related fields.
 

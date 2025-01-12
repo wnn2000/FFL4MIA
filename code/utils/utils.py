@@ -86,7 +86,7 @@ def compute_loss(dataset, net, args):
     return loss_all, label_all, prob_all, pred_all
 
 
-def get_perturb_model(dataset, net, args):
+def get_perturb_model(dataset, net, rho, args):
     loader = DataLoader(copy.deepcopy(dataset), batch_size=64, shuffle=False, num_workers=4)
     ce_criterion = nn.CrossEntropyLoss(reduction="sum")
     net.eval()
@@ -100,7 +100,6 @@ def get_perturb_model(dataset, net, args):
             loss.backward()
     
     grad_norm = torch.norm(torch.stack([p.grad.norm(p=2) for p in net.parameters() if p.grad is not None]), p=2)
-    rho = 0.05
     perturb_eps = 1e-12
     scale = rho / (grad_norm + perturb_eps)
     for p in net.parameters():
@@ -143,3 +142,13 @@ def local_valid(model, dataset, args):
     from sklearn.metrics import balanced_accuracy_score, accuracy_score
 
     return balanced_accuracy_score(label_all, pred_all)
+
+
+
+def get_current_rho(rnd, args):
+    if args.alg == "FedISM+":
+        rho = args.gsam_rho * ((rnd+1) / args.rounds)**args.p_rho_curve
+    else:
+        rho = args.gsam_rho
+
+    return rho
