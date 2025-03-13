@@ -2,7 +2,7 @@
 
 Welcome to the official repository for the papers titled:  
 - [From Optimization to Generalization: Fair Federated Learning against Quality Shift via Inter-Client Sharpness Matching](https://arxiv.org/abs/2404.17805)  
-- Fair Federated Medical Image Classification Against Quality Shift via Inter-Client Progressive State Matching (under review)
+- [Fair Federated Medical Image Classification Against Quality Shift via Inter-Client Progressive State Matching](https://arxiv.org/abs/2503.09587) (under review)
 
 The first paper has been accepted for presentation in the main technical track of `IJCAI'24`. The second paper is an extended version of the first one.
 
